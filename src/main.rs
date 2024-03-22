@@ -56,7 +56,6 @@ async fn process_submission(data: web::Form<PostForm>, id: Identity) -> impl Res
 
         let connection = establish_connection();
         let user :Result<User, diesel::result::Error> = users.filter(username.eq(id)).first(&connection);
-
         match user {
             Ok(u) => {
                 let new_post = NewPost::from_post_form(data.title.clone(), data.link.clone(), u.id);
